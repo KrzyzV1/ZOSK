@@ -1,0 +1,72 @@
+.register-section {
+    padding: 6rem 0;
+    background-color: var(--grey-color);
+}
+
+.register-card {
+    background-color: var(--white-color);
+    padding: 4rem 3rem;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.register-card h2 {
+    margin-bottom: 2rem;
+    color: var(--black-color);
+}
+
+.register-form .form-group {
+    margin-bottom: 1.8rem;
+}
+
+.register-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--light-black-color);
+    font-weight: 500;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 1.6rem;
+    background-color: var(--grey-color);
+    transition: var(--transition);
+}
+
+.register-form input:focus {
+    border-color: var(--purple-color);
+    background-color: var(--white-color);
+}
+
+.btn {
+    padding: 1rem 1.5rem;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.error-message {
+    color: var(--pink-color);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .register-card {
+        padding: 3rem 2rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
