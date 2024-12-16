@@ -1,0 +1,78 @@
+/* Magazyn Styles */
+.magazyn {
+    padding: 3rem 0;
+    background-color: var(--grey-color);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-bottom: 2rem;
+}
+
+.magazyn-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+}
+
+.magazyn-table th,
+.magazyn-table td {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.magazyn-table th {
+    background-color: var(--purple-color);
+    color: var(--white-color);
+    font-size: 1.6rem;
+}
+
+.magazyn-table td {
+    background-color: var(--grey-color);
+    font-size: 1.4rem;
+}
+
+.magazyn-table tr:hover {
+    background-color: var(--light-black-color);
+    color: var(--white-color);
+}
+
+.magazyn-btn {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--purple-color);
+    color: var(--white-color);
+    transition: background-color 300ms ease;
+    margin-top: 2rem;
+    display: block;
+    text-align: center;
+}
+
+.magazyn-btn:hover {
+    background-color: var(--pink-color);
+}
+
+/* Responsive design */
+@media screen and (min-width: 600px) {
+    .magazyn-table {
+        table-layout: fixed;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .magazyn-table th,
+    .magazyn-table td {
+        padding: 2rem;
+    }
+}

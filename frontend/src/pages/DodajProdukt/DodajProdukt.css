@@ -1,0 +1,64 @@
+/* Dodaj Produkt Styles */
+.dodaj-produkt {
+    padding: 3rem 0;
+    background-color: var(--grey-color);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-bottom: 2rem;
+}
+
+.dodaj-form {
+    background-color: var(--white-color);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--black-color);
+    display: block;
+    margin-bottom: 0.8rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.6rem;
+    border: 1px solid var(--light-black-color);
+    border-radius: 5px;
+    background-color: var(--grey-color);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--purple-color);
+}
+
+.dodaj-btn {
+    padding: 1rem 2rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--purple-color);
+    color: var(--white-color);
+    transition: background-color 300ms ease;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.dodaj-btn:hover {
+    background-color: var(--pink-color);
+}
