@@ -99,7 +99,39 @@ public abstract class GenericRepository<T> {
 
         return jdbcTemplate.update(queryBuilder.toString(), params.toArray());
     }
+    
 
+    public int partialUpdate(T updatedEntity, int id) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE " + tableName + " SET ");
+        Field[] fields = updatedEntity.getClass().getDeclaredFields();
+
+        List<Object> params = new ArrayList<>();
+        boolean fieldsUpdated = false;
+
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(updatedEntity);
+                if (value != null) {
+                    queryBuilder.append(field.getName()).append(" = ?, ");
+                    params.add(value);
+                    fieldsUpdated = true;
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Unable to access field: " + field.getName(), e);
+            }
+        }
+
+        if (fieldsUpdated) {
+            queryBuilder.delete(queryBuilder.length() - 2, queryBuilder.length());
+            queryBuilder.append(" WHERE ").append(idColumn).append(" = ?");
+            params.add(id);
+            
+            return jdbcTemplate.update(queryBuilder.toString(), params.toArray());
+        } else {
+            return 0;
+        }
+    }
 
     
     public int deleteById(int id) {
