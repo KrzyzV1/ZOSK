@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../../config';
 import './DodajProdukt.css';
 
 const DodajProdukt = () => {
@@ -7,17 +8,16 @@ const DodajProdukt = () => {
     name: '',
     quantity: '',
     location: '',
-    productId: '',  // Dodano pole productId
+    productId: '',
   });
-  const [productList, setProductList] = useState([]); // Lista produktów
+  const [productList, setProductList] = useState([]);
   const navigate = useNavigate();
 
-  // Funkcja do pobrania produktów (można zastąpić odpowiednim API)
   useEffect(() => {
-    fetch('/produkty')  // Załóżmy, że to jest endpoint API dla produktów
+    fetch(`${API_BASE_URL}/produkty`)
       .then((res) => res.json())
       .then((data) => setProductList(data))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error('Error fetching products:', err));
   }, []);
 
   const handleChange = (e) => {
@@ -31,16 +31,16 @@ const DodajProdukt = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('/stan_magazynowy', {
+    fetch(`${API_BASE_URL}/stan_magazynowy`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product),
     })
       .then(() => {
         alert('Produkt dodany!');
-        navigate('/magazyn'); // Redirect after submit
+        navigate('/magazyn');
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error('Error adding product:', err));
   };
 
   return (
