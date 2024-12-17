@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Magazyn.css';
+import API_BASE_URL from './config';
 
 const Magazyn = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch('/stan_magazynowy')
+    fetch(`${API_BASE_URL}/stan_magazynowy`)
       .then(response => response.json())
       .then(data => setItems(data))
       .catch(err => console.error(err));
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`/stan_magazynowy/${id}`, { method: 'DELETE' })
-      .then(() => setItems(items.filter(item => item.stanId !== id)))  // Poprawka: używamy stanId zamiast id
+    fetch(`${API_BASE_URL}/stan_magazynowy/${id}`, { method: 'DELETE' })
+      .then(() => setItems(items.filter(item => item.stanId !== id)))
       .catch(err => console.error(err));
   };
 
@@ -25,18 +26,18 @@ const Magazyn = () => {
         <table className="magazyn-table">
           <thead>
             <tr>
-              <th>Lokalizacja</th>  {/* Zmieniono na lokalizację */}
+              <th>Lokalizacja</th>
               <th>Ilość</th>
               <th>Akcje</th>
             </tr>
           </thead>
           <tbody>
             {items.map(item => (
-              <tr key={item.stanId}>  {/* Poprawka: używamy stanId */}
-                <td>{item.lokalizacja}</td>  {/* Zmieniono na lokalizację */}
-                <td>{item.ilosc}</td>  {/* Zmieniono na ilość */}
+              <tr key={item.stanId}>
+                <td>{item.lokalizacja}</td>
+                <td>{item.ilosc}</td>
                 <td>
-                  <button className="magazyn-btn" onClick={() => handleDelete(item.stanId)}>Usuń</button>  {/* Poprawka: używamy stanId */}
+                  <button className="magazyn-btn" onClick={() => handleDelete(item.stanId)}>Usuń</button>
                 </td>
               </tr>
             ))}
