@@ -9,6 +9,6 @@ import pl.zpi.zosk.baza.basic.Produkt;
 public class ProduktRepository extends GenericRepository<Produkt> {
 
     public ProduktRepository(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate, Produkt.class, "produkt", "Produkt_id");
+        super(jdbcTemplate, Produkt.class, "produkt", "produktId");
     }
 }
