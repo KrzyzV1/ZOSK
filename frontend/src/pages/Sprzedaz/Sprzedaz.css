@@ -1,0 +1,58 @@
+.sprzedaz {
+    padding: 3rem 0;
+    background-color: #f8f9fa;
+  }
+  
+  .sprzedaz .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: var(--black-color);
+  }
+  
+  .sprzedaz-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: var(--white-color);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 15px 0px;
+  }
+  
+  .sprzedaz-table th,
+  .sprzedaz-table td {
+    text-align: left;
+    padding: 1.2rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .sprzedaz-table th {
+    background-color: var(--purple-color);
+    color: var(--white-color);
+    font-weight: 600;
+  }
+  
+  .sprzedaz-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .sprzedaz-btn {
+    padding: 0.8rem 1.2rem;
+    background-color: var(--pink-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .sprzedaz-btn:hover {
+    background-color: var(--purple-color);
+  }
+  

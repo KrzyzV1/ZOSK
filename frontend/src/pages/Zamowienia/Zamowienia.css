@@ -1,0 +1,88 @@
+.zamowienia {
+  padding: 3rem 0;
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: var(--black-color);
+}
+
+.zamowienia-actions {
+  display: flex;
+  justify-content: flex-start; /* Przyciski wyrównane do lewej */
+  align-items: center;
+  gap: 1rem; /* Odstępy między przyciskami */
+  margin-bottom: 2rem;
+}
+
+.view-btn,
+.add-btn {
+  padding: 0.8rem 1.2rem;
+  background-color: var(--purple-color); /* Wszystkie przyciski w kolorze fioletowym */
+  color: var(--white-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+
+.view-btn.active {
+  background-color: var(--pink-color); /* Aktywny przycisk w kolorze różowym */
+}
+
+.view-btn:hover,
+.add-btn:hover {
+  opacity: 0.9;
+}
+
+.zamowienia-table,
+.dostawcy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: var(--white-color);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 15px 0px;
+}
+
+.zamowienia-table th,
+.dostawcy-table th,
+.zamowienia-table td,
+.dostawcy-table td {
+  text-align: left;
+  padding: 1.2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.zamowienia-table th,
+.dostawcy-table th {
+  background-color: var(--purple-color);
+  color: var(--white-color);
+  font-weight: 600;
+}
+
+.zamowienia-table tr:hover,
+.dostawcy-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.zamowienia-btn,
+.dostawcy-btn {
+  padding: 0.8rem 1.2rem;
+  background-color: var(--purple-color); /* Wszystkie przyciski w kolorze fioletowym */
+  color: var(--white-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.zamowienia-btn:hover,
+.dostawcy-btn:hover {
+  opacity: 0.9;
+}
