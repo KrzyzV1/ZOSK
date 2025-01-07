@@ -9,6 +9,6 @@ import pl.zpi.zosk.baza.basic.Zamowienia;
 public class ZamowieniaRepository extends GenericRepository<Zamowienia> {
 
     public ZamowieniaRepository(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate, Zamowienia.class, "zamowienia", "Zamowienia_id");
+        super(jdbcTemplate, Zamowienia.class, "zamowienia", "zamowieniaId");
     }
 }

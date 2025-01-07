@@ -9,6 +9,6 @@ import pl.zpi.zosk.baza.basic.Transakcje;
 public class TransakcjeRepository extends GenericRepository<Transakcje> {
 
     public TransakcjeRepository(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate, Transakcje.class, "transakcje", "Transakcja_id");
+        super(jdbcTemplate, Transakcje.class, "transakcje", "transakcjaId");
     }
 }

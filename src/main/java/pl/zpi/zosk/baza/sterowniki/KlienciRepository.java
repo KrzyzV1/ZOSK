@@ -9,6 +9,6 @@ import pl.zpi.zosk.baza.basic.Klienci;
 public class KlienciRepository extends GenericRepository<Klienci> {
 
     public KlienciRepository(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate, Klienci.class, "klienci", "Klient_id");
+        super(jdbcTemplate, Klienci.class, "klienci", "klientId");
     }
 }
