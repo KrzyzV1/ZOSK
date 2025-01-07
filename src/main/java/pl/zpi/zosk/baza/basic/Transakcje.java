@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class Transakcje {
 	public int transakcjaId;
 	public int produktId;
-	public int kwota;
+	public Double kwota;
 	public int ilosc;
 	public String dataTransakcji;
-	public int numerPartii;
-	public int numerZamowienia;
+	public String numerPartii;
+	public String numerZamowienia;
 	public int magazynierId;
 	public int klientId;
 	public int dostawcaId;

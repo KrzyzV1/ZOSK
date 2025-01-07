@@ -13,5 +13,5 @@ public class Klienci {
 	public String imieNazwisko;
 	public String adres;
 	public String daneKontaktowe;
-	public int numerNip;
+	public String numerNip;
 }

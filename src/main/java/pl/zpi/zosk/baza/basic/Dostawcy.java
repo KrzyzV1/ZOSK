@@ -12,5 +12,5 @@ public class Dostawcy {
 	public String nazwaFirmy;
 	public String adres;
 	public String daneKontaktowe;
-	public int numerNip;
+	public String numerNip;
 }

@@ -12,5 +12,5 @@ public class Produkt{
 	private String nazwa;
 	private String kategoria;
 	private String numerSeryjny;
-	private int cena;
+	private Double cena;
 }

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Faktury {
 	public int fakturaId;
-	public int numerFaktury;
+	public String numerFaktury;
 	public String dataWystawienia;
-	public int kwota;
+	public Double kwota;
 	public String statusPlatnosci;
 	public int klientId;
 	public int dostawcaId;
