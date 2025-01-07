@@ -16,6 +16,7 @@ import DodajZamowienie from './pages/Zamowienia/DodajZamowienie';
 import Raporty from './pages/Finanse/Raporty'; 
 import DodajFakture from './pages/Finanse/DodajFakture';
 import Produkty  from './components/Produkty/Produkty';
+import EdytujProdukt from './pages/Magazyn/EdytujProdukt';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -35,6 +36,7 @@ root.render(
           <Route path="raporty" element={<Raporty />} /> 
           <Route path="addInvoice" element={<DodajFakture />} />
           <Route path="products" element={<Produkty />} />
+          <Route path="/editProduct/:id" element={<EdytujProdukt />} />
         </Route>
       </Routes>
     </BrowserRouter>

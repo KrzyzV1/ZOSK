@@ -1,0 +1,45 @@
+.edytuj-produkt {
+    padding: 3rem 0;
+    background-color: var(--grey-color);
+  }
+  
+  .edytuj-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--white-color);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.6rem;
+    border: 1px solid var(--light-black-color);
+    border-radius: 4px;
+  }
+  
+  .edytuj-btn {
+    background-color: var(--purple-color);
+    color: var(--white-color);
+    padding: 1rem 1.5rem;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edytuj-btn:hover {
+    opacity: 0.9;
+  }
+  
