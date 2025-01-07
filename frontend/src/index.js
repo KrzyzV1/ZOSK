@@ -33,7 +33,7 @@ root.render(
           <Route path="sales" element={<Sprzedaz />} />
           <Route path="addProduct" element={<DodajProdukt />} />
           <Route path="addOrder" element={<DodajZamowienie />} />
-          <Route path="raporty" element={<Raporty />} /> 
+          <Route path="reports" element={<Raporty />} /> 
           <Route path="addInvoice" element={<DodajFakture />} />
           <Route path="products" element={<Produkty />} />
           <Route path="/editProduct/:id" element={<EdytujProdukt />} />

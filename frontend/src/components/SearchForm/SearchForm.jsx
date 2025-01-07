@@ -1,36 +1,48 @@
 import React, { useRef, useEffect } from 'react';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context';
-import "./SearchForm.css";
+import './SearchForm.css';
 
 const SearchForm = () => {
-  const { setSearchTerm } = useGlobalContext();
+  const { setSearchTerm, setResultTitle } = useGlobalContext();
   const searchText = useRef('');
+  const navigate = useNavigate();
 
-  useEffect(() => searchText.current.focus(), []);
+  useEffect(() => {
+    searchText.current.focus();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const searchTerm = searchText.current.value.trim();
-
-    if (searchTerm.length > 0) {
-      setSearchTerm(searchTerm); // Aktualizujemy frazę wyszukiwania
+    const tempSearchTerm = searchText.current.value.trim();
+    if (tempSearchTerm === '') {
+      setResultTitle('Proszę wprowadzić dane');
+      setSearchTerm('');
     } else {
-      alert("Wprowadź nazwę produktu do wyszukiwania.");
+      setSearchTerm(tempSearchTerm);
+      navigate('/products'); // Zmiana ścieżki do wyświetlania wyników
     }
   };
 
   return (
     <div className="search-form">
       <div className="container">
-        <form className="search-form" onSubmit={handleSubmit}>
-          <div className="search-form-elem flex flex-sb bg-white">
-            <input type="text" className="form-control" placeholder="Wyszukaj produkt" ref={searchText} />
-            <button type="submit" className="flex flex-c">
-              <FaSearch className="text-purple" size={32} />
-            </button>
-          </div>
-        </form>
+        <div className="search-form-content">
+          <form className="search-form" onSubmit={handleSubmit}>
+            <div className="search-form-elem flex flex-sb bg-white">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Wyszukaj produkty..."
+                ref={searchText}
+              />
+              <button type="submit" className="flex flex-c">
+                <FaSearch className="text-purple" size={32} />
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

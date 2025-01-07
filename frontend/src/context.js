@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import API_BASE_URL from './config';
 
 const AppContext = React.createContext();
@@ -6,34 +6,48 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [resultTitle, setResultTitle] = useState('');
 
-  useEffect(() => {
-    if (searchTerm) {
-      fetchProducts(searchTerm);
-    }
-  }, [searchTerm]);
-
-  const fetchProducts = async (term) => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/produkt?nazwa=${term}`);
+      const url = searchTerm
+        ? `${API_BASE_URL}/produkt?search=${searchTerm}`
+        : `${API_BASE_URL}/produkt`;
+
+      const response = await fetch(url);
       const data = await response.json();
-      setProducts(data);
+
+      if (data && data.length > 0) {
+        setProducts(data);
+        setResultTitle(searchTerm ? 'Wyniki wyszukiwania' : 'Lista produktów');
+      } else {
+        setProducts([]);
+        setResultTitle('Brak wyników');
+      }
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('Błąd pobierania danych:', error);
       setProducts([]);
+      setResultTitle('Błąd wyszukiwania');
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchTerm]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
-    <AppContext.Provider value={{ products, loading, setSearchTerm }}>
+    <AppContext.Provider value={{ loading, products, setSearchTerm, resultTitle }}>
       {children}
     </AppContext.Provider>
   );
 };
 
-export const useGlobalContext = () => useContext(AppContext);
+export const useGlobalContext = () => {
+  return useContext(AppContext);
+};
+
 export { AppContext, AppProvider };

@@ -10,14 +10,29 @@ const DodajProdukt = () => {
     location: '',
     productId: '',
   });
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]); // Domyślnie tablica
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/produkty`)
-      .then((res) => res.json())
-      .then((data) => setProductList(data))
-      .catch((err) => console.error('Error fetching products:', err));
+    fetch(`${API_BASE_URL}/produkt`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setProductList(data); // Ustawienie danych, jeśli są tablicą
+        } else {
+          console.error('API returned unexpected response format:', data);
+          setProductList([]); // Domyślna wartość, jeśli dane nie są tablicą
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching products:', err);
+        setProductList([]); // Obsługa błędu
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -36,11 +51,17 @@ const DodajProdukt = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product),
     })
-      .then(() => {
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
         alert('Produkt dodany!');
-        navigate('/magazyn');
+        navigate('/warehouse');
       })
-      .catch((err) => console.error('Error adding product:', err));
+      .catch((err) => {
+        console.error('Error adding product:', err);
+        alert('Wystąpił błąd podczas dodawania produktu.');
+      });
   };
 
   return (
@@ -60,8 +81,8 @@ const DodajProdukt = () => {
             >
               <option value="">Wybierz produkt</option>
               {productList.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
+                <option key={item.produktId} value={item.produktId}>
+                  {item.nazwa}
                 </option>
               ))}
             </select>

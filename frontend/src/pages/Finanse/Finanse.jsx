@@ -1,53 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../../config';
 import './Finanse.css';
 
 const Finanse = () => {
+  const [faktury, setFaktury] = useState([]);
+
+  useEffect(() => {
+    // Załaduj faktury z API (w tym przypadku testowego)
+    fetch(`${API_BASE_URL}/faktury`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setFaktury(data);
+        } else {
+          setFaktury([]);
+        }
+      })
+      .catch((error) => {
+        console.error('Błąd podczas ładowania faktur:', error);
+        setFaktury([]); // Jeśli błąd, pokaż pustą listę
+      });
+  }, []);
+
   return (
     <div className="finanse">
       <div className="container">
-        <h1 className="section-title">Finanse</h1>
-        <p className="finanse-description">
-          Zarządzaj swoimi finansami, przeglądaj faktury i generuj zaawansowane raporty finansowe.
-        </p>
-        <div className="finanse-actions">
-          <Link to="/raporty" className="finanse-btn">Zaawansowane Raporty</Link>
-          <Link to="/addInvoice" className="finanse-btn">Dodaj Fakturę</Link>
+        <div className="finanse-header">
+          <h1 className="section-title">Faktury</h1>
+          <div className="finanse-buttons">
+            <Link to="/addInvoice" className="finanse-btn">
+              Dodaj Fakturę
+            </Link>
+            <Link to="/reports" className="finanse-btn">
+              Raporty
+            </Link>
+          </div>
         </div>
-        <table className="finanse-table">
-          <thead>
-            <tr>
-              <th>Numer Faktury</th>
-              <th>Data Wystawienia</th>
-              <th>Kwota</th>
-              <th>Status Płatności</th>
-              <th>Akcje</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Przykładowe dane */}
-            <tr>
-              <td>12345</td>
-              <td>2023-12-01</td>
-              <td>1500 PLN</td>
-              <td>Opłacona</td>
-              <td>
-                <button className="finanse-btn">Szczegóły</button>
-                <button className="finanse-btn">Usuń</button>
-              </td>
-            </tr>
-            <tr>
-              <td>67890</td>
-              <td>2023-12-05</td>
-              <td>2300 PLN</td>
-              <td>Nieopłacona</td>
-              <td>
-                <button className="finanse-btn">Szczegóły</button>
-                <button className="finanse-btn">Usuń</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        {faktury.length > 0 ? (
+          <table className="faktury-table">
+            <thead>
+              <tr>
+                <th>Numer Faktury</th>
+                <th>Data Wystawienia</th>
+                <th>Kwota</th>
+                <th>Status Płatności</th>
+                <th>Klient ID</th>
+                <th>Dostawca ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {faktury.map((faktura) => (
+                <tr key={faktura.fakturaId}>
+                  <td>{faktura.numerFaktury}</td>
+                  <td>{faktura.dataWystawienia}</td>
+                  <td>{faktura.kwota}</td>
+                  <td>{faktura.statusPlatnosci}</td>
+                  <td>{faktura.klientId}</td>
+                  <td>{faktura.dostawcaId}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Brak faktur do wyświetlenia</p>
+        )}
       </div>
     </div>
   );
