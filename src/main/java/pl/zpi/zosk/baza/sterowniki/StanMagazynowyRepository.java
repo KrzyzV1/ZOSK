@@ -9,6 +9,6 @@ import pl.zpi.zosk.baza.basic.StanMagazynowy;
 public class StanMagazynowyRepository extends GenericRepository<StanMagazynowy> {
 
     public StanMagazynowyRepository(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate, StanMagazynowy.class, "stan_magazynowy", "Stan_id");
+        super(jdbcTemplate, StanMagazynowy.class, "stan_magazynowy", "stanId");
     }
 }

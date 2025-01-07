@@ -4,8 +4,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class GenericRepository<T> {
 
@@ -32,43 +34,108 @@ public abstract class GenericRepository<T> {
         String query = "SELECT * FROM " + tableName + " WHERE " + idColumn + " = ?";
         return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(entityClass), id);
     }
+    
+    public int save(List<T> entities) {
+        if (entities == null || entities.isEmpty()) {
+            return 0; 
+        }
 
-    public int insert(String insertQuery, Object... params) {
-        return jdbcTemplate.update(insertQuery, params);
+   
+        Field[] fields = entityClass.getDeclaredFields();
+
+     
+        String columns = Arrays.stream(fields)
+                .map(Field::getName)
+                .collect(Collectors.joining(", "));
+        String placeholders = Arrays.stream(fields)
+                .map(field -> "?")
+                .collect(Collectors.joining(", "));
+
+      
+        String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, placeholders);
+
+     
+        for (T entity : entities) {
+            Object[] values = Arrays.stream(fields)
+                    .map(field -> {
+                        try {
+                            field.setAccessible(true);
+                            return field.get(entity);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException("Unable to access field: " + field.getName(), e);
+                        }
+                    }).toArray();
+
+            jdbcTemplate.update(sql, values);
+        }
+
+        return entities.size();
     }
+
+
     
     public int update(T updatedEntity, int id) {
         StringBuilder queryBuilder = new StringBuilder("UPDATE " + tableName + " SET ");
-        Object[] params = new Object[10];
         Field[] fields = updatedEntity.getClass().getDeclaredFields();
-        int i = 0;
 
+        List<Object> params = new ArrayList<>();
         for (Field field : fields) {
-            field.setAccessible(true);
             try {
+                field.setAccessible(true);
                 Object value = field.get(updatedEntity);
                 if (value != null) {
-                    queryBuilder.append(field.getName() + " = ?, ");
-                    params[i++] = value;
+                    queryBuilder.append(field.getName()).append(" = ?, ");
+                    params.add(value);
                 }
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Unable to access field: " + field.getName(), e);
             }
         }
+
         queryBuilder.delete(queryBuilder.length() - 2, queryBuilder.length());
-        queryBuilder.append(" WHERE " + idColumn + " = ?");
-        params[i] = id;
+        queryBuilder.append(" WHERE ").append(idColumn).append(" = ?");
 
-        
-        System.out.println("Generated Query: " + queryBuilder.toString());
-        System.out.println("Parameters: " + Arrays.toString(params));
+        params.add(id);
 
-        return jdbcTemplate.update(queryBuilder.toString(), params);
+        return jdbcTemplate.update(queryBuilder.toString(), params.toArray());
+    }
+    
+
+    public int partialUpdate(T updatedEntity, int id) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE " + tableName + " SET ");
+        Field[] fields = updatedEntity.getClass().getDeclaredFields();
+
+        List<Object> params = new ArrayList<>();
+        boolean fieldsUpdated = false;
+
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(updatedEntity);
+                if (value != null) {
+                    queryBuilder.append(field.getName()).append(" = ?, ");
+                    params.add(value);
+                    fieldsUpdated = true;
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Unable to access field: " + field.getName(), e);
+            }
+        }
+
+        if (fieldsUpdated) {
+            queryBuilder.delete(queryBuilder.length() - 2, queryBuilder.length());
+            queryBuilder.append(" WHERE ").append(idColumn).append(" = ?");
+            params.add(id);
+            
+            return jdbcTemplate.update(queryBuilder.toString(), params.toArray());
+        } else {
+            return 0;
+        }
     }
 
     
     public int deleteById(int id) {
-        String query = "DELETE FROM " + tableName + " WHERE id = ?";
+        String query = "DELETE FROM " + tableName + " WHERE " + idColumn + " = ?";
         return jdbcTemplate.update(query, id);
     }
 }
