@@ -36,9 +36,9 @@ public abstract class GenericRepository<T> {
         return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(entityClass), id);
     }
     
-    public int save(List<T> entities) {
-        if (entities == null || entities.isEmpty()) {
-            return 0; 
+    public int save(T entity) {
+        if (entity == null) {
+            return 0;
         }
 
         Field[] fields = entityClass.getDeclaredFields();
@@ -55,23 +55,18 @@ public abstract class GenericRepository<T> {
         String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, placeholders);
 
         // Iteracja przez encje i zapis do bazy
-        for (T entity : entities) {
-            Object[] values = Arrays.stream(fields)
-                    .map(field -> {
-                        try {
-                            field.setAccessible(true);
-                            return field.get(entity);
-                        } catch (IllegalAccessException e) {
-                            throw new RuntimeException("Unable to access field: " + field.getName(), e);
-                        }
-                    }).toArray();
+        Object[] values = Arrays.stream(fields)
+                .map(field -> {
+                    try {
+                        field.setAccessible(true);
+                        return field.get(entity);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException("Unable to access field: " + field.getName(), e);
+                    }
+                }).toArray();
 
-            jdbcTemplate.update(sql, values);
-        }
-
-        return entities.size();
+        return jdbcTemplate.update(sql, values);
     }
-
 
     
     public int update(T updatedEntity, int id) {

@@ -1,5 +1,7 @@
 package pl.zpi.zosk.baza.basic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +10,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Faktury {
-	public int fakturaId;
-	public String numerFaktury;
-	public String dataWystawienia;
-	public Double kwota;
-	public String statusPlatnosci;
-	public int klientId;
-	public int dostawcaId;
+    @JsonProperty("fakturaId")
+    private int fakturaId;
+
+    @JsonProperty("numerFaktury")
+    private String numerFaktury;
+
+    @JsonProperty("dataWystawienia")
+    private String dataWystawienia;
+
+    @JsonProperty("kwota")
+    private Double kwota;
+
+    @JsonProperty("statusPlatnosci")
+    private String statusPlatnosci;
+
+    @JsonProperty("klientId")
+    private int klientId;
+
+    @JsonProperty("dostawcaId")
+    private int dostawcaId;
 }

@@ -8,7 +8,7 @@ import pl.zpi.zosk.baza.basic.StanMagazynowy;
 @Repository
 public class StanMagazynowyRepository extends GenericRepository<StanMagazynowy> {
 
-    public StanMagazynowyRepository(JdbcTemplate jdbcTemplate) {
-        super(jdbcTemplate, StanMagazynowy.class, "stan_magazynowy", "stanId");
-    }
+	public StanMagazynowyRepository(JdbcTemplate jdbcTemplate) {
+	     super(jdbcTemplate, StanMagazynowy.class, "stan_magazynowy" ,"stanId");
+	    }
 }

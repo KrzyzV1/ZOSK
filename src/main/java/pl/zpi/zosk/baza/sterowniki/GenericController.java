@@ -28,13 +28,13 @@ public abstract class GenericController<T> {
 
     
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody List<T> entities) {
-        if (entities == null || entities.isEmpty()) {
-            return ResponseEntity.badRequest().body("No entities provided for saving.");
+    public ResponseEntity<String> save(@RequestBody T entity) {
+        if (entity == null) {
+            return ResponseEntity.badRequest().body("No entity provided for saving.");
         }
 
-        int savedCount = repository.save(entities);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedCount + " entities saved successfully.");
+        int savedCount = repository.save(entity);  // save przyjmuje pojedynczy obiekt
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCount + " entity saved successfully.");
     }
 
 
